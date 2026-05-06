@@ -107,18 +107,14 @@ local function defeatGoblin(player)
 	end
 
 	state.goblinDefeated = true
-	if state.currentRoom == "GoblinRoom" then
-		objectiveChangedEvent:FireClient(player, "Goblin derrotado. Vá até a sala do tesouro.")
-	else
-		pushHud(player)
-	end
-	end
+	pushHud(player)
+end
 
 local function openChest(player)
 	local state = getState(player)
 
 	if not state.goblinDefeated then
-		objectiveChangedEvent:FireClient(player, "Antes do baú, derrote o Goblin.")
+		pushHud(player)
 		return
 	end
 
@@ -128,29 +124,25 @@ local function openChest(player)
 	end
 
 	state.chestOpened = true
-	if state.currentRoom == "TreasureRoom" then
-		objectiveChangedEvent:FireClient(player, "Você encontrou uma recompensa. Vá até a saída.")
-	else
-		pushHud(player)
-	end
-	end
+	pushHud(player)
+end
 
 local function tryExit(player)
 	local state = getState(player)
 
 	if not state.goblinDefeated then
-		objectiveChangedEvent:FireClient(player, "A saída continua bloqueada. Derrote o Goblin primeiro.")
+		pushHud(player)
 		return
 	end
 
 	if not state.chestOpened then
-		objectiveChangedEvent:FireClient(player, "A saída continua bloqueada. Abra o baú primeiro.")
+		pushHud(player)
 		return
 	end
 
 	state.runComplete = true
-	objectiveChangedEvent:FireClient(player, "Vitória! Você escapou da dungeon.")
-	end
+	pushHud(player)
+end
 
 for _, roomModel in ipairs(roomsFolder:GetChildren()) do
 	if roomModel:IsA("Model") then
