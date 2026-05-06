@@ -29,7 +29,7 @@ local function pushHud(player)
 	local displayName = config.RoomDisplayNames[roomName] or roomName
 	local objectiveText = config.getObjective(roomName, state)
 
-	roomChangedEvent:FireClient(player, displayName)
+	roomChangedEvent:FireClient(player, displayName, objectiveText)
 	objectiveChangedEvent:FireClient(player, objectiveText)
 end
 

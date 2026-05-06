@@ -11,8 +11,12 @@ local objectiveChangedEvent = remotesFolder:WaitForChild("ObjectiveChanged")
 roomLabel.Text = "Sala Inicial"
 objectiveLabel.Text = "Explore a dungeon."
 
-roomChangedEvent.OnClientEvent:Connect(function(roomName)
+
+roomChangedEvent.OnClientEvent:Connect(function(roomName, objectiveText)
 	roomLabel.Text = roomName
+	if objectiveText then
+		objectiveLabel.Text = objectiveText
+	end
 end)
 
 objectiveChangedEvent.OnClientEvent:Connect(function(objectiveText)
